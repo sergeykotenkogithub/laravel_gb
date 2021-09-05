@@ -15,11 +15,8 @@ class CategoriesController extends Controller
     }
     public function item($category)
     {
-//        return view('news.item', [
-//            'item' => $this->getNum($category)
-//        ]);
-        return view('news.item', [
-            'item' => $this->getNum($category)
+        return view('news.index', [
+            'newsList' => $this->getNum($category)
         ]);
     }
 }
