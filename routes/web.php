@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,20 +21,29 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Отображается приветствие по имени в зависимости от url
-
-Route::get('/name/{name}', function (string $name) {
-    return "Hello, {$name}";
+//admin
+Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('news',
+     AdminNewsController::class);
 });
 
-Route::get('/hello', function () {
-    return view('hello');
-});
+//news
 
-Route::get('/info', function () {
-    return view('info');
-});
+Route::get('/news', [NewsController::class, 'index'])
+    ->name('news');
+Route::get('/news/{id}', [NewsController::class, 'show'])
+    ->where('id', '\d+')
+    ->name('news.show');
 
-Route::get('/article', function () {
-    return view('article');
-});
+
+Route::get('/categories', [CategoriesController::class, 'categories'])
+    ->name('categories');
+
+Route::get('/categories/{item}', [CategoriesController::class, 'item'])
+//    ->where('id', '\d+')
+    ->name('news.item');
+
+//Route::get('/categories/news', [NewsController::class, 'index'])
+//    ->where('id', '\d+')
+//    ->name('news.item');
