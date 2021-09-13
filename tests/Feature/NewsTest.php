@@ -21,6 +21,20 @@ class NewsTest extends TestCase
         $response->assertStatus(200);
     }
 
+    public function test_available_admin_categories()
+    {
+        $response = $this->get('/admin/categories');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_available_admin_news_create()
+    {
+        $response = $this->get('/admin/news/create');
+
+        $response->assertStatus(200);
+    }
+
     public function test_available_only_news()
     {
         $id = mt_rand(1,20);
@@ -44,5 +58,33 @@ class NewsTest extends TestCase
         $response = $this->get('/form_buy');
 
         $response->assertStatus(200);
+    }
+
+    public function test_available_news()
+    {
+        $response = $this->get('/news');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_available_assert_ok_admin_news()
+    {
+        $response = $this->get('/admin/news/');
+
+        $response->assertOk();
+    }
+
+    public function test_available_assert_ok_news()
+    {
+        $response = $this->get('/news/');
+
+        $response->assertOk();
+    }
+
+    public function test_available_form_buy_assert_successful()
+    {
+        $response = $this->get('/form_buy');
+
+        $response->assertSuccessful();
     }
 }

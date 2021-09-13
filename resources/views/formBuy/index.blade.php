@@ -1,6 +1,6 @@
 @extends('layouts.form_buy')
 @section('content')
-    <h3> Форму заказа на получение выгрузки данных: </h3>
+    <h3> Форма заказа на получение выгрузки данных: </h3>
     <div class="row mt-4 mb-4">
         <div class="col-md-8">
             @if($errors->any())
