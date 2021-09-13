@@ -27,4 +27,30 @@
         <div class="card-header">Side Widget</div>
         <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
     </div>
+
+
+
+{{--    <div class="row border border-dark">--}}
+        <div class="card md-4 p-3">
+            <h2> Форма обратной связи </h2>
+            @if($errors->any())
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+            @endif
+            <form class="d-flex flex-column" method="post" action="{{ route('news.store')  }} ">
+                @csrf
+                <div class="form-group">
+                    <label for="title"> Имя пользователя </label>
+                    <input type="text" class="form-control" name="title" id="title" value="{{ old('title')  }}">
+                </div>
+                <div class="form-group">
+                    <label for="author"> Отзыв </label>
+                    <input type="text" class="form-control" name="author" id="author" value="{{ old('author')  }}">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-success">Отправить</button>
+            </form>
+{{--        </div>--}}
+    </div>
 </div>

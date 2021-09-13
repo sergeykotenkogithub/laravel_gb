@@ -21,4 +21,13 @@ class NewsController extends Controller
             'id' => $id
         ]);
     }
+
+    public function store(Request $request)
+    {
+//        $request->validate([
+//            'title' => ['required', 'string', 'min:3']
+//        ]);
+        dd($request->all());
+//        return redirect()->route('admin.news.index');
+    }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\FormBuy\FormBuyController;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +54,25 @@ Route::get('news/categories', [CategoriesController::class, 'categories'])
 Route::get('news/categories/{item}', [CategoriesController::class, 'item'])
 //    ->where('id', '\d+')
     ->name('news.item');
+
+
+Route::post('/news/store', [NewsController::class, 'store'])
+    ->name('news.store');
+
+
+// Форма
+
+Route::get('form_buy/', [FormBuyController::class, 'create'])
+//    ->where('id', '\d+')
+    ->name('form_buy.create');
+
+Route::post('form_buy/store', [FormBuyController::class, 'store'])
+//    ->where('id', '\d+')
+    ->name('form_buy.store');
+
+
+
+
 
 //Route::get('/categories/news', [NewsController::class, 'index'])
 //    ->where('id', '\d+')

@@ -4,7 +4,7 @@
 
         <!-- Nested row for non-featured blog posts-->
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg">
                 @forelse ($newsList as $news)
                 <div class="card mb-4">
                     <a href="{{ route('news.show', ['id' => $news['id']]) }}">
