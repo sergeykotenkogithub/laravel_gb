@@ -4,6 +4,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     {{--        <h1 class="h3 mb-0 text-gray-800">Панель администратора</h1>--}}
+    @include('inc.messages')
     <h1 class="h3 mb-0 text-gray-800">Список категорий</h1>
     <a href=" {{ route('admin.categories.create')  }} " class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
             class="fas fa-plus fa-sm text-white-50"></i> Добавить категорию </a>
@@ -15,6 +16,7 @@
                 <thead>
                 <tr>
                     <th>#ID</th>
+                    <th>Кол-во новостей</th>
                     <th>Заголовок</th>
                     <th>Дата добавления</th>
                     <th>Управления</th>
@@ -26,6 +28,7 @@
                   @forelse($categories as $category)
                       <tr>
                           <td>{{ $category->id }}</td>
+                          <td>({{ $category->news_count }}) </td>
                           <td>{{ $category->title }}</td>
                           <td>{{ $category->created_at }}</td>
                           <td>

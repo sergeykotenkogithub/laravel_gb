@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\News;
 use Illuminate\Http\Request;
 
 class NewsController extends Controller
@@ -24,10 +25,19 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
-//        $request->validate([
-//            'title' => ['required', 'string', 'min:3']
-//        ]);
+
         dd($request->all());
 //        return redirect()->route('admin.news.index');
+
+//
+//        $news = News::create(
+//            $request->only(['category_id' ,'title', 'author', 'description'])
+//        );
+//        if($news ) {
+//            return redirect()->route('admin.news.index')->
+//            with('success', 'Запись успешно добавлена');
+//        }
+//
+//        return back()->with('error', 'Запись не добавлена')->withInput();
     }
 }

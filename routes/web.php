@@ -70,10 +70,13 @@ Route::post('form_buy/store', [FormBuyController::class, 'store'])
 //    ->where('id', '\d+')
     ->name('form_buy.store');
 
+Route::get('/collections', function () {
+   $collect = collect([1, 3, 9, 2, 5, 112, 8]);
+   dd($collect->min());
+});
 
 
 
-
-//Route::get('/categories/news', [NewsController::class, 'index'])
-//    ->where('id', '\d+')
-//    ->name('news.item');
+Route::get('/categories/news', [NewsController::class, 'index'])
+    ->where('id', '\d+')
+    ->name('news.item');
