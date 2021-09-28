@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Account\IndexController as AccountController;
 use App\Http\Controllers\Admin\AddNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\CategoriesController;
@@ -32,12 +34,27 @@ Route::get('/', function () {
 
 Route::get('/auth', [AuthorizationController::class, 'index']);
 
-//admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
-    Route::resource('categories', AdminCategoryController::class);
-    Route::resource('news', AdminNewsController::class);
-    Route::resource('add', AddNewsController::class);
+// auth
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/account', AccountController::class)->name('account');
+    Route::get('/logout', function () {
+       \Auth::logout();
+       return redirect()->route('login');
+    })->name('logout');
+
+    Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
+        Route::get('/', AdminController::class)->name('index');
+        Route::resource('categories', AdminCategoryController::class);
+        Route::resource('news', AdminNewsController::class);
+        Route::resource('add', AddNewsController::class);
+    });
+
 });
+
+
+//admin
+
 
 //news
 
@@ -80,3 +97,7 @@ Route::get('/collections', function () {
 Route::get('/categories/news', [NewsController::class, 'index'])
     ->where('id', '\d+')
     ->name('news.item');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
