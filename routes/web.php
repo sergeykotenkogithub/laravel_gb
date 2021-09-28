@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AddNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\FormBuy\FormBuyController;
@@ -46,6 +47,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'admin'], function () {
         Route::get('/', AdminController::class)->name('index');
         Route::resource('categories', AdminCategoryController::class);
+        Route::resource('users', AdminUserController::class);
         Route::resource('news', AdminNewsController::class);
         Route::resource('add', AddNewsController::class);
     });
