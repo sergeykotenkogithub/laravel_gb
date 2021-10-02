@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Contract\Parser;
+use App\Contract\Social;
+use App\Services\ParserService;
+use App\Services\SocialService;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +20,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         Schema::defaultStringLength(191);
+        $this->app->bind(Parser::class, ParserService::class);
+        $this->app->bind(Social::class, SocialService::class);
     }
 
     /**

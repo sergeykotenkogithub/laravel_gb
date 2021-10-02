@@ -5,11 +5,13 @@ use App\Http\Controllers\Admin\AddNewsController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\IndexController as AdminController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\AuthorizationController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\FormBuy\FormBuyController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\SocialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +52,9 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('users', AdminUserController::class);
         Route::resource('news', AdminNewsController::class);
         Route::resource('add', AddNewsController::class);
+
+        Route::get('parser', ParserController::class)
+            ->name('parser');
     });
 
 });
@@ -99,6 +104,13 @@ Route::get('/collections', function () {
 Route::get('/categories/news', [NewsController::class, 'index'])
     ->where('id', '\d+')
     ->name('news.item');
+
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/vk/start', [SocialController::class, 'start'])
+        ->name('vk.start');
+    Route::get('/vk/callback', [SocialController::class, 'callback'])
+        ->name('vk.callback');
+});
 
 Auth::routes();
 
