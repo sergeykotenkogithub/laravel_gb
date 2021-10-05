@@ -8,10 +8,10 @@ use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class ParserService implements Parser
 {
-    public function parse(string $link) :array
+    public function parse(string $link) :void
     {
         $xml = XmlParser::load($link);
-        return $xml->parse([
+        $data = $xml->parse([
             'title' => [
                 'uses' => 'channel.title'
             ],
@@ -28,5 +28,9 @@ class ParserService implements Parser
                 'uses' => 'channel.item[title, link, guid, description, pubDate]'
             ]
         ]);
+
+        $e = explode("/", $link);
+        $filename = end($e);
+        \Storage::disk('parsing')->append('news/' . $filename, json_encode($data));
     }
 }
